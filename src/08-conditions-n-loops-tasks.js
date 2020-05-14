@@ -91,8 +91,11 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  const sides = [a, b, c];
+  const max = Math.max(...sides);
+  const sum = sides.reduce((acc, el) => acc + el, 0);
+  return sum - max > max;
 }
 
 
@@ -219,8 +222,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -236,8 +239,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  return Number(str.split('').reverse().join(''));
 }
 
 
@@ -261,8 +265,17 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const array = ccn.toString().split('');
+  for (let i = array.length - 2; i >= 0; i -= 2) {
+    if (Number(array[i]) * 2 >= 10) {
+      array[i] *= 2;
+      const twoDigit = array[i].toString().split('');
+      array[i] = twoDigit.reduce((acc, el) => Number(el) + Number(acc), 0);
+    } else { array[i] = Number(array[i]) * 2; }
+  }
+  const y = array.reduce((acc, el) => Number(acc) + Number(el), 0);
+  return y % 10 === 0;
 }
 
 /**
@@ -279,8 +292,17 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  function summing(num2) {
+    const array = num2.toString().split('');
+    const x = array.reduce((acc, el) => Number(el) + Number(acc), 0);
+    return x;
+  }
+  let sum = summing(num);
+  while (sum > 9) {
+    sum = summing(sum);
+  }
+  return sum;
 }
 
 
@@ -370,7 +392,7 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
+function getMatrixProduct() {
   throw new Error('Not implemented');
 }
 
